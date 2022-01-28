@@ -1,3 +1,9 @@
+// Have custom numbers and strings Package
+/*
+1. numbers package check if the int is prime or not
+2. strings package reverse runes and it's subpackage greeting have
+constant that greets
+*/
 package main
 
 import (
