@@ -23,10 +23,21 @@ type NoiseMaker interface {
 	MakeSound()
 }
 
+// play : declare NoiseMaker interface as play function parameter
+func play(n NoiseMaker) {
+	n.MakeSound()
+}
 func main() {
 	var toy NoiseMaker
 	toy = Whistle("christiano")
 	toy.MakeSound()
 	toy = Horn("train")
 	toy.MakeSound()
+
+	/*function parameters with interface types as well.
+		  (After all,function parameters are really just variables too.)
+	so, this below also works
+	*/
+	play(Whistle("christiano"))
+	play(Horn("train"))
 }
