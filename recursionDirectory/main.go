@@ -6,6 +6,16 @@ import (
 	"path/filepath"
 )
 
+func panicReport() {
+	p := recover() //Go offers a built-in recover function that can stop a program from panicking. Call "recover" and stores its return value
+	if p == nil {
+		return
+	}
+	err, ok := p.(error) // type assertion : get the underlying "error" value
+	if ok {
+		fmt.Println(err)
+	}
+}
 func scanDirectory(path string) error {
 	fmt.Println(path)
 	files, err := ioutil.ReadDir(path) // Get the slice with directory content
@@ -24,6 +34,7 @@ func scanDirectory(path string) error {
 }
 
 func main() {
+	defer panicReport()                       // Before calling code that might panic, defer a call to our new panicReport function
 	scanDirectory("<path to your directory>") // "Users/<UserName>/desktop/<Directory>" in mac
 
 }
