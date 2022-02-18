@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"path/filepath"
 )
 
@@ -11,18 +10,12 @@ func scanDirectory(path string) error {
 	fmt.Println(path)
 	files, err := ioutil.ReadDir(path) // Get the slice with directory content
 	if err != nil {
-		panic("OMG! Unable to scan given directory") // using inbuilt panic function to show what went wrong
-		//fmt.Printf("Returning error from scanDirectory(\"%s\") call\n", path)
-		//return err
+		panic(err) // using inbuilt panic function to show what went wrong. All the recursive calls to scanDirectory exit
 	}
 	for _, file := range files {
 		filePath := filepath.Join(path, file.Name()) // join directory and file name
 		if file.IsDir() {                            // if this is a subdirectory
-			err := scanDirectory(filePath) // recursively call scanDirectory, this time with the subdirectory path
-			if err != nil {
-				fmt.Printf("Returning error from scanDirectory(\"%s\") call", path)
-				return err
-			}
+			scanDirectory(filePath) // recursively call scanDirectory, this time with the subdirectory path
 		} else {
 			fmt.Println(filePath) // just print regular file
 		}
@@ -31,8 +24,6 @@ func scanDirectory(path string) error {
 }
 
 func main() {
-	err := scanDirectory("<full path to your folder>")
-	if err != nil {
-		log.Fatal(err)
-	}
+	scanDirectory("<path to your directory>") // "Users/<UserName>/desktop/<Directory>" in mac
+
 }
