@@ -11,8 +11,9 @@ func scanDirectory(path string) error {
 	fmt.Println(path)
 	files, err := ioutil.ReadDir(path) // Get the slice with directory content
 	if err != nil {
-		fmt.Printf("Returning error from scanDirectory(\"%s\") call\n", path)
-		return err
+		panic("OMG! Unable to scan given directory") // using inbuilt panic function to show what went wrong
+		//fmt.Printf("Returning error from scanDirectory(\"%s\") call\n", path)
+		//return err
 	}
 	for _, file := range files {
 		filePath := filepath.Join(path, file.Name()) // join directory and file name
