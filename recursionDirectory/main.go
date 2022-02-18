@@ -14,6 +14,9 @@ func panicReport() {
 	err, ok := p.(error) // type assertion : get the underlying "error" value
 	if ok {
 		fmt.Println(err)
+	} else {
+		/* A common strategy for dealing with unanticipated panics you’re not prepared to recover from is to simply renew the panic state. Panicking again is usually appropriate because, after all, this is an unanticipated situation.*/
+		panic(p)
 	}
 }
 func scanDirectory(path string) error {
